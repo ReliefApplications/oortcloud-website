@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oort Technology — Nearshore IT & Project Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0a0f1c;
+    --ink-soft:#1a2236;
+    --paper:#f7f8fb;
+    --white:#ffffff;
+    --mute:#5b667d;
+    --line:#e3e7f0;
+    --accent:#2b6cff;
+    --accent-deep:#1746b8;
+    --glow:#5fa8ff;
+    --halo:rgba(43,108,255,.14);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Spline Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4{font-family:"Sora",sans-serif;line-height:1.1;letter-spacing:-.02em}
+  a{text-decoration:none;color:inherit}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    backdrop-filter:saturate(180%) blur(14px);
+    background:rgba(247,248,251,.72);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s,background .3s;
+  }
+  header.scrolled{border-bottom:1px solid var(--line);background:rgba(247,248,251,.9)}
+  nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:"Sora";font-weight:700;font-size:19px;letter-spacing:-.02em}
+  .logo{
+    width:34px;height:34px;border-radius:9px;position:relative;
+    background:radial-gradient(circle at 30% 30%,var(--glow),var(--accent) 45%,var(--accent-deep));
+    box-shadow:0 4px 14px var(--halo);
+    flex-shrink:0;
+  }
+  .logo::after{
+    content:"";position:absolute;inset:0;border-radius:9px;
+    border:1.5px solid rgba(255,255,255,.45);
+    -webkit-mask:radial-gradient(circle at 70% 70%,transparent 55%,#000 56%);
+            mask:radial-gradient(circle at 70% 70%,transparent 55%,#000 56%);
+  }
+  .navlinks{display:flex;gap:34px;align-items:center}
+  .navlinks a{font-size:15px;color:var(--mute);font-weight:500;transition:color .2s}
+  .navlinks a:hover{color:var(--ink)}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--accent);color:#fff;font-weight:600;font-size:15px;
+    padding:11px 22px;border-radius:10px;
+    box-shadow:0 6px 18px var(--halo);
+    transition:transform .2s,box-shadow .2s,background .2s;
+    font-family:"Sora";letter-spacing:-.01em;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 26px var(--halo);background:var(--accent-deep)}
+  .btn.ghost{background:transparent;color:var(--ink);box-shadow:none;border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--white);border-color:var(--accent)}
+  .nav-cta{display:flex;gap:12px;align-items:center}
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;flex-direction:column;gap:5px}
+  .menu-btn span{width:24px;height:2px;background:var(--ink);border-radius:2px;transition:.3s}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:170px 0 120px;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+  .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
+  .orb1{width:520px;height:520px;top:-160px;right:-120px;background:radial-gradient(circle,var(--glow),transparent 70%)}
+  .orb2{width:420px;height:420px;bottom:-180px;left:-140px;background:radial-gradient(circle,#b9d2ff,transparent 70%)}
+  .grid-lines{
+    position:absolute;inset:0;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:54px 54px;
+    -webkit-mask:radial-gradient(ellipse 80% 60% at 50% 30%,#000,transparent 75%);
+            mask:radial-gradient(ellipse 80% 60% at 50% 30%,#000,transparent 75%);
+    opacity:.5;
+  }
+  .hero-inner{position:relative;z-index:1;max-width:820px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;
+    background:var(--white);border:1px solid var(--line);
+    padding:7px 15px;border-radius:100px;font-size:13.5px;font-weight:600;
+    color:var(--ink-soft);margin-bottom:28px;
+    box-shadow:0 2px 8px rgba(10,15,28,.04);
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px var(--halo)}
+  .hero h1{font-size:clamp(38px,6vw,68px);font-weight:800;margin-bottom:26px}
+  .hero h1 .hl{
+    background:linear-gradient(120deg,var(--accent),var(--glow));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p.lead{font-size:clamp(17px,2.2vw,21px);color:var(--mute);max-width:620px;margin-bottom:38px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero-cta .btn{padding:14px 28px;font-size:16px}
+  .trust{margin-top:54px;display:flex;flex-direction:column;gap:14px}
+  .trust span{font-size:13px;text-transform:uppercase;letter-spacing:.14em;color:var(--mute);font-weight:600}
+  .trust-logos{display:flex;gap:38px;align-items:center;flex-wrap:wrap;opacity:.85}
+  .trust-logos div{font-family:"Sora";font-weight:700;font-size:18px;color:var(--ink-soft);letter-spacing:-.01em;display:flex;align-items:center;gap:8px}
+  .trust-logos .mk{width:9px;height:9px;border-radius:2px;background:var(--accent);transform:rotate(45deg)}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative}
+  .sec-head{max-width:620px;margin-bottom:56px}
+  .sec-tag{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  .sec-head h2{font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:16px}
+  .sec-head p{color:var(--mute);font-size:17px}
+
+  /* ---------- SERVICES ---------- */
+  .services{padding:110px 0;background:var(--white);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:34px 30px;
+    transition:transform .3s,box-shadow .3s,border-color .3s;position:relative;overflow:hidden;
+  }
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,var(--accent),var(--glow));
+    transform:scaleX(0);transform-origin:left;transition:transform .35s;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(10,15,28,.09);border-color:transparent}
+  .card:hover::before{transform:scaleX(1)}
+  .ico{
+    width:50px;height:50px;border-radius:13px;display:grid;place-items:center;margin-bottom:22px;
+    background:linear-gradient(135deg,var(--halo),rgba(95,168,255,.1));
+    border:1px solid var(--line);
+  }
+  .ico svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:1.8}
+  .card h3{font-size:20px;font-weight:600;margin-bottom:11px}
+  .card p{color:var(--mute);font-size:15.5px}
+
+  /* ---------- APPROACH / EMBEDDED ---------- */
+  .approach{padding:110px 0}
+  .split{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center}
+  .approach h2{font-size:clamp(28px,4vw,42px);font-weight:700;margin-bottom:22px}
+  .approach .sec-tag{margin-bottom:14px}
+  .approach p.body{color:var(--mute);font-size:17px;margin-bottom:24px}
+  .checks{list-style:none;display:flex;flex-direction:column;gap:16px}
+  .checks li{display:flex;gap:14px;align-items:flex-start;font-size:16px;color:var(--ink-soft)}
+  .checks .ck{
+    width:24px;height:24px;border-radius:7px;flex-shrink:0;margin-top:2px;
+    background:var(--accent);display:grid;place-items:center;box-shadow:0 4px 10px var(--halo);
+  }
+  .checks .ck svg{width:13px;height:13px;stroke:#fff;stroke-width:3;fill:none}
+  .checks li strong{color:var(--ink);font-weight:600}
+
+  /* visual panel */
+  .panel{
+    position:relative;border-radius:22px;padding:36px;
+    background:linear-gradient(160deg,var(--ink),var(--ink-soft));
+    color:#fff;overflow:hidden;box-shadow:0 30px 60px rgba(10,15,28,.25);
+  }
+  .panel::before{
+    content:"";position:absolute;width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(circle,rgba(95,168,255,.5),transparent 70%);
+    top:-100px;right:-80px;filter:blur(20px);
+  }
+  .panel .ptag{position:relative;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--glow);font-weight:600;margin-bottom:22px}
+  .flow{position:relative;display:flex;flex-direction:column;gap:0}
+  .flow-row{display:flex;align-items:center;gap:16px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .flow-row:last-child{border-bottom:0}
+  .flow-num{
+    width:36px;height:36px;border-radius:10px;flex-shrink:0;display:grid;place-items:center;
+    font-family:"Sora";font-weight:700;font-size:15px;
+    background:rgba(95,168,255,.16);color:var(--glow);border:1px solid rgba(95,168,255,.3);
+  }
+  .flow-txt h4{font-family:"Sora";font-size:16px;font-weight:600;margin-bottom:2px}
+  .flow-txt span{font-size:13.5px;color:rgba(255,255,255,.6)}
+
+  /* ---------- STATS ---------- */
+  .stats{padding:80px 0;background:var(--white);border-top:1px solid var(--line)}
+  .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;text-align:center}
+  .stat .num{font-family:"Sora";font-size:clamp(34px,5vw,52px);font-weight:800;background:linear-gradient(120deg,var(--accent),var(--glow));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+  .stat .lbl{margin-top:10px;color:var(--mute);font-size:15px;font-weight:500}
+
+  /* ---------- CTA ---------- */
+  .cta{padding:110px 0}
+  .cta-box{
+    position:relative;border-radius:28px;padding:74px 56px;text-align:center;overflow:hidden;
+    background:linear-gradient(150deg,var(--ink),var(--ink-soft));color:#fff;
+    box-shadow:0 40px 80px rgba(10,15,28,.3);
+  }
+  .cta-box .orbc{position:absolute;width:380px;height:380px;border-radius:50%;filter:blur(60px);opacity:.5}
+  .cta-box .oc1{background:radial-gradient(circle,var(--accent),transparent 70%);top:-120px;left:-60px}
+  .cta-box .oc2{background:radial-gradient(circle,var(--glow),transparent 70%);bottom:-140px;right:-60px}
+  .cta-box h2{position:relative;font-size:clamp(28px,4.5vw,46px);font-weight:800;margin-bottom:18px;letter-spacing:-.02em}
+  .cta-box p{position:relative;color:rgba(255,255,255,.75);font-size:18px;max-width:520px;margin:0 auto 34px}
+  .cta-box .btn{background:#fff;color:var(--ink);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .cta-box .btn:hover{background:var(--glow);color:#fff}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:54px 0 40px;background:var(--paper);border-top:1px solid var(--line)}
+  .foot-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:30px;margin-bottom:36px}
+  .foot-brand{max-width:300px}
+  .foot-brand .brand{margin-bottom:14px}
+  .foot-brand p{color:var(--mute);font-size:14.5px}
+  .foot-cols{display:flex;gap:64px;flex-wrap:wrap}
+  .foot-col h5{font-family:"Sora";font-size:14px;font-weight:600;margin-bottom:14px;letter-spacing:-.01em}
+  .foot-col a{display:block;color:var(--mute);font-size:14.5px;margin-bottom:9px;transition:color .2s}
+  .foot-col a:hover{color:var(--accent)}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;padding-top:26px;border-top:1px solid var(--line);font-size:13.5px;color:var(--mute)}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:880px){
+    .navlinks{display:none}
+    .nav-cta .btn.ghost{display:none}
+    .menu-btn{display:flex}
+    .split{grid-template-columns:1fr;gap:44px}
+    .cards{grid-template-columns:1fr}
+    .stat-grid{grid-template-columns:repeat(2,1fr);gap:36px 20px}
+    .hero{padding:140px 0 90px}
+    .cta-box{padding:54px 28px}
+    .foot-cols{gap:40px}
+  }
+</style>
+</head>
+<body>
+
+<header id="head">
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top"><span class="logo"></span>Oort<span style="color:var(--accent)">Technology</span></a>
+      <div class="navlinks">
+        <a href="#services">Services</a>
+        <a href="#approach">How we work</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="nav-cta">
+        <a href="#contact" class="btn ghost">Talk to us</a>
+        <a href="#contact" class="btn">Get started</a>
+      </div>
+      <button class="menu-btn" id="menuBtn"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg">
+    <div class="grid-lines"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+  </div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow"><span class="dot"></span>Nearshore IT teams · Based in Spain</span>
+    <h1>Expert IT teams,<br><span class="hl">fully embedded</span> in your business.</h1>
+    <p class="lead">Oort Technology provides nearshore IT and project-management services. We deploy Spain-based specialists who work alongside your people — like internal staff, without the overhead.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn">Build your team →</a>
+      <a href="#services" class="btn ghost">Explore services</a>
+    </div>
+    <div class="trust">
+      <span>Trusted by international organisations &amp; private companies</span>
+      <div class="trust-logos">
+        <div><span class="mk"></span>Red Cross</div>
+        <div><span class="mk"></span>International NGOs</div>
+        <div><span class="mk"></span>French Enterprises</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="sec-tag">What we do</div>
+      <h2>IT capability, delivered as part of your team</h2>
+      <p>We don't hand you a black box. We give you skilled people who integrate, contribute, and ship — embedded in your projects from day one.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+        <h3>Software &amp; IT delivery</h3>
+        <p>Engineers, developers and IT specialists who build, maintain and support your systems as a seamless extension of your in-house capacity.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3 8-8M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+        <h3>Project management</h3>
+        <p>Experienced PMs who take ownership of scope, timelines and delivery — keeping complex initiatives on track and stakeholders aligned.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3>Embedded experts</h3>
+        <p>Dedicated specialists deployed into your organisation — fully integrated, acting almost as internal staff to fill exactly the gaps you have.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach" id="approach">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="sec-tag">How we work</div>
+      <h2>Nearshore, embedded, and genuinely yours</h2>
+      <p class="body">Our teams are Spain-based contractors who work in your time zone, in your tools, and inside your workflows. You get the responsiveness of an internal hire with the flexibility of a service partner.</p>
+      <ul class="checks">
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Fully embedded.</strong> Our people join your standups, your channels and your projects — not a distant outsourced silo.</span></li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Nearshore advantage.</strong> Shared time zones and cultural alignment mean real-time collaboration, every day.</span></li>
+        <li><span class="ck"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span><span><strong>Spain-based talent.</strong> A trusted pool of experienced Spanish specialists, ready to deploy.</span></li>
+      </ul>
+    </div>
+    <div class="panel reveal">
+      <div class="ptag">From brief to embedded — in weeks</div>
+      <div class="flow">
+        <div class="flow-row"><div class="flow-num">1</div><div class="flow-txt"><h4>We scope your need</h4><span>Skills, seniority, and how the role fits your team.</span></div></div>
+        <div class="flow-row"><div class="flow-num">2</div><div class="flow-txt"><h4>We match specialists</h4><span>Vetted Spain-based experts selected for your stack.</span></div></div>
+        <div class="flow-row"><div class="flow-num">3</div><div class="flow-txt"><h4>They embed with you</h4><span>Integrated into your tools, rituals and workflows.</span></div></div>
+        <div class="flow-row"><div class="flow-num">4</div><div class="flow-txt"><h4>You scale on demand</h4><span>Flex the team up or down as your projects evolve.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="clients">
+  <div class="wrap">
+    <div class="stat-grid">
+      <div class="stat reveal"><div class="num">100%</div><div class="lbl">Spain-based specialists</div></div>
+      <div class="stat reveal"><div class="num">3+</div><div class="lbl">Sectors served</div></div>
+      <div class="stat reveal"><div class="num">NGO</div><div class="lbl">&amp; humanitarian experience</div></div>
+      <div class="stat reveal"><div class="num">EU</div><div class="lbl">Time-zone aligned</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <div class="orbc oc1"></div>
+      <div class="orbc oc2"></div>
+      <h2>Let's build your embedded team.</h2>
+      <p>Tell us what you need and we'll put the right Spain-based specialists inside your projects — fast.</p>
+      <a href="mailto:contact@oortcloud.tech" class="btn">contact@oortcloud.tech →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <a class="brand" href="#top"><span class="logo"></span>Oort<span style="color:var(--accent)">Technology</span></a>
+        <p>Nearshore IT and project-management services. Spain-based experts, embedded in your business.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#services">Services</a>
+          <a href="#approach">How we work</a>
+          <a href="#clients">Clients</a>
+        </div>
+        <div class="foot-col">
+          <h5>Get in touch</h5>
+          <a href="#contact">Contact us</a>
+          <a href="mailto:contact@oortcloud.tech">contact@oortcloud.tech</a>
+        </div>
+        <div class="foot-col">
+          <h5>Legal</h5>
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="privacy-policy.html#cookies">Cookies</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 Oort Technology. All rights reserved.</span>
+      <span>Based in Spain · Serving Europe &amp; beyond</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const head=document.getElementById('head');
+  addEventListener('scroll',()=>head.classList.toggle('scrolled',scrollY>10));
+
+  const io=new IntersectionObserver((es)=>{
+    es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*70);io.unobserve(e.target);}});
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  document.getElementById('menuBtn').addEventListener('click',()=>{
+    alert('Menu: Services · How we work · Clients · Contact');
+  });
+</script>
+
+<!-- ============ COOKIE NOTICE (essential cookies only) ============ -->
+<style>
+  .cc-notice{
+    position:fixed;z-index:100;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
+    width:calc(100% - 36px);max-width:520px;
+    background:var(--white);border:1px solid var(--line);border-radius:16px;
+    box-shadow:0 24px 60px rgba(10,15,28,.24);
+    padding:20px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    opacity:0;pointer-events:none;transition:opacity .35s,transform .35s;
+  }
+  .cc-notice.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto}
+  .cc-notice p{flex:1 1 260px;color:var(--mute);font-size:14px;line-height:1.55;margin:0}
+  .cc-notice p a{color:var(--accent);font-weight:600}
+  .cc-notice p a:hover{text-decoration:underline}
+  .cc-notice button{
+    flex:0 0 auto;cursor:pointer;font-family:"Sora";font-weight:600;font-size:14.5px;letter-spacing:-.01em;
+    padding:11px 24px;border-radius:10px;border:none;
+    background:var(--accent);color:#fff;box-shadow:0 6px 18px var(--halo);
+    transition:transform .2s,box-shadow .2s,background .2s;
+  }
+  .cc-notice button:hover{transform:translateY(-2px);background:var(--accent-deep);box-shadow:0 12px 26px var(--halo)}
+  @media(max-width:880px){
+    .cc-notice{bottom:0;left:0;transform:translateY(20px);width:100%;max-width:none;border-radius:16px 16px 0 0}
+    .cc-notice.show{transform:translateY(0)}
+    .cc-notice button{width:100%}
+  }
+</style>
+
+<aside class="cc-notice" id="ccNotice" role="region" aria-label="Cookie notice" hidden>
+  <p>We use only essential cookies needed for this site to work — no tracking, analytics or advertising. Read more in our <a href="privacy-policy.html#cookies">Privacy &amp; Cookie Policy</a>.</p>
+  <button type="button" id="ccOk">Got it</button>
+</aside>
+
+<script>
+(function(){
+  var KEY='oort_cookie_notice_v1';
+  var notice=document.getElementById('ccNotice');
+  function dismissed(){try{return localStorage.getItem(KEY)==='1';}catch(e){return false;}}
+  function hide(){notice.classList.remove('show');setTimeout(function(){notice.hidden=true;},350);}
+  document.getElementById('ccOk').addEventListener('click',function(){
+    try{localStorage.setItem(KEY,'1');}catch(e){}
+    hide();
+  });
+  // Essential-only: this is an informational notice, not a consent gate.
+  if(!dismissed()){
+    notice.hidden=false;
+    requestAnimationFrame(function(){notice.classList.add('show');});
+  }
+})();
+</script>
+</body>
+</html>
